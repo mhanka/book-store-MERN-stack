@@ -1,0 +1,18 @@
+version: "3"
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: mohankris1995/book-store-app:backend-latest
+    ports:
+      - 5000:5000
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: mohankris1995/book-store-app:frontend-latest
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
