@@ -1,5 +1,5 @@
 # Stage 1: Build frontend
-FROM node:18.16.1-alpine as backend-build
+FROM node:18.16.1-alpine as build
 
 WORKDIR /app/backend
 
@@ -10,13 +10,10 @@ RUN npm install
 # Copy the rest of the backend application code to the working directory
 COPY backend ./
 
-# Expose port for backend server
 EXPOSE 5000
 
-ENTRYPOINT ["npm", "start"]
+RUN npm run build
 
-# Stage 2: Build backend
-FROM backend-build as frontend-build
 
 WORKDIR /app/frontend
 
@@ -26,6 +23,8 @@ RUN npm install
 
 # Copy the rest of the frontend application code to the working directory
 COPY frontend ./
+
+EXPOSE 3000
 RUN npm run build
 
 
@@ -36,15 +35,13 @@ FROM nginx:1.19
 COPY ./frontend/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Copy built frontend files
-COPY --from=frontend-build /app/frontend/dist /usr/share/nginx/html
+COPY --from=build /app/frontend/dist /usr/share/nginx/html
+COPY --from=build /app/backend/dist /usr/share/nginx/html
 
 # Copy built backend files
-COPY --from=backend-build /app/backend  /app/backend
-
 
 # Expose ports
 EXPOSE 80
-EXPOSE 443
 
 # Start the NGINX server
 CMD ["nginx", "-g", "daemon off;"]
