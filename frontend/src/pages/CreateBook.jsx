@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import axios from "axios";
+import config from "../../config";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -21,7 +22,7 @@ const CreateBook = () => {
     };
     setLoading(true);
     axios
-      .post("http://localhost:5000/books", data)
+      .post(`${config.backendUrl}/books`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book Created successfully", { variant: "success" });

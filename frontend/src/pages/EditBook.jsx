@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import axios from "axios";
+import config from "../../config";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
@@ -17,7 +18,7 @@ const EditBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5000/books/${id}`)
+      .get(`${config.backendUrl}/books/${id}`)
       .then((response) => {
         setAuthor(response.data.data.author);
         setPublishYear(response.data.data.publishYear);
