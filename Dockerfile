@@ -10,7 +10,6 @@ RUN npm install
 # Copy the rest of the backend application code to the working directory
 COPY backend ./
 
-EXPOSE 5000
 
 RUN npm run build
 
@@ -24,7 +23,6 @@ RUN npm install
 # Copy the rest of the frontend application code to the working directory
 COPY frontend ./
 
-EXPOSE 3000
 RUN npm run build
 
 
