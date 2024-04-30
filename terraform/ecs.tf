@@ -1,10 +1,5 @@
-resource aws_cluster "main" {
+resource aws_ecs_cluster "main" {
     name = "book-store-cluster"
-    capacity_providers = ["FARGATE"]
-    default_capacity_provider_strategy {
-        capacity_provider = "FARGATE"
-        weight            = 1
-    }
 }
 
 data template_file "frontend_app"{
@@ -51,7 +46,7 @@ resource aws_ecs_task_definition "backend_app" {
 
 resource aws_ecs_service "frontend_app" {
     name = "frontend-app"
-    cluster = aws_cluster.main.arn
+    cluster = aws_ecs_cluster.main.arn
     task_definition = aws_ecs_task_definition.frontend_app.arn
     desired_count = 1
     launch_type = "FARGATE"
@@ -70,7 +65,7 @@ resource aws_ecs_service "frontend_app" {
 
 resource aws_ecs_service "backend_app" {
     name = "backend-app"
-    cluster = aws_cluster.main.arn
+    cluster = aws_ecs_cluster.main.arn
     task_definition = aws_ecs_task_definition.backend_app.arn
     desired_count = 1
     launch_type = "FARGATE"

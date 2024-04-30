@@ -31,7 +31,7 @@ resource "aws_lb_listener" "front_end_listener" {
     protocol          = "HTTP"
     default_action {
         type             = "forward"
-        target_group_arn = aws_lb_target_group.main.arn
+        target_group_arn = aws_lb_target_group.frontend_target_group.arn
     }
 }
 
@@ -41,6 +41,6 @@ resource "aws_lb_listener" "back_end_listener" {
     protocol          = "HTTP"
     default_action {
         type             = "forward"
-        target_group_arn = aws_lb_target_group.main.arn
+        target_group_arn = aws_lb_target_group.backend_target_group.arn
     }
 }
