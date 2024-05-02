@@ -1,13 +1,13 @@
 # alb.tf
 
 resource "aws_alb" "main" {
-    name        = "cb-load-balancer"
+    name        = "bk-load-balancer"
     subnets         = aws_subnet.public.*.id
     security_groups = [aws_security_group.lb.id]
 }
 
 resource "aws_lb_target_group" "frontend_target_group" {
-    name     = "cb-target-group"
+    name     = "bk-target-group"
     port     = var.frontend_app_port
     protocol = "HTTP"
     vpc_id   = aws_vpc.main.id
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "frontend_target_group" {
 }
 
 resource "aws_lb_target_group" "backend_target_group" {
-    name     = "cb-target-group"
+    name     = "bk-target-group"
     port     = var.backend_app_port
     protocol = "HTTP"
     vpc_id   = aws_vpc.main.id
