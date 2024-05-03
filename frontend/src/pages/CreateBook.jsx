@@ -22,7 +22,7 @@ const CreateBook = () => {
     };
     setLoading(true);
     axios
-      .post(`${config.backendUrl}/books`, data)
+      .post(`/api`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book Created successfully", { variant: "success" });

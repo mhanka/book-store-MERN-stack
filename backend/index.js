@@ -18,7 +18,7 @@ app.use(cors());
 //     allowedHeaders: ["Content-Type"],
 //   })
 // );
-app.use("/books", booksRoute);
+app.use("/api", booksRoute);
 mongoose
   .connect(process.env.MONGODBURL)
   .then(() => {
