@@ -27,7 +27,7 @@ pnpm-debug.log*
 *.tfstate
 *.tfstate.backup
 *.tfplan
-
+*.tfvars
 
 # Ignore .terraform directory
 .terraform/
