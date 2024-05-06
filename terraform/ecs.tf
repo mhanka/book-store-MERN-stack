@@ -5,8 +5,8 @@ resource aws_ecs_cluster "main" {
 data template_file "frontend_app"{
     template = file("./templates/ecs/frontend_app.json.tpl")
     vars = {
-        image = var.frontend_app_image
-        port = var.frontend_app_port
+        frontend_app_image = var.frontend_app_image
+        frontend_app_port = var.frontend_app_port
         fargate_cpu = var.fargate_cpu
         fargate_memory = var.fargate_memory
         aws_region = var.aws_region
@@ -16,8 +16,8 @@ data template_file "frontend_app"{
 data template_file "backend_app"{
     template = file("./templates/ecs/backend_app.json.tpl")
     vars = {
-        image = var.backend_app_image
-        port = var.backend_app_port
+        backend_app_image = var.backend_app_image
+        backend_app_port = var.backend_app_port
         fargate_cpu = var.fargate_cpu
         fargate_memory = var.fargate_memory
         aws_region = var.aws_region
@@ -56,11 +56,11 @@ resource aws_ecs_service "frontend_app" {
         assign_public_ip = true
     }
     load_balancer {
-        target_group_arn = aws_lb_target_group.frontend_app.arn
+        target_group_arn = aws_lb_target_group.frontend_target_group.arn
         container_name = "book-store-frontend-app"
         container_port = var.frontend_app_port
     }
-    depends_on = [ aws_lb_target_group.frontend_app, aws_iam_role.ecs_task_execution_role ]
+    depends_on = [ aws_lb_target_group.frontend_target_group, aws_iam_role.ecs_task_execution_role ]
 }
 
 resource aws_ecs_service "backend_app" {
@@ -75,9 +75,9 @@ resource aws_ecs_service "backend_app" {
         assign_public_ip = true
     }
     load_balancer {
-        target_group_arn = aws_lb_target_group.backend_app.arn
+        target_group_arn = aws_lb_target_group.backend_target_group.arn
         container_name = "book-store-backend-app"
         container_port = var.backend_app_port
     }
-    depends_on = [ aws_lb_target_group.backend_app, aws_iam_role.ecs_task_execution_role ]
+    depends_on = [ aws_lb_target_group.backend_target_group, aws_iam_role.ecs_task_execution_role ]
 }

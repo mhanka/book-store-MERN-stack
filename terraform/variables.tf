@@ -2,10 +2,12 @@
 
 variable "aws_access_key" {
     description = "The IAM public access key"
+    sensitive = true
 }
 
 variable "aws_secret_key" {
     description = "IAM secret access key"
+    sensitive = true
 }
 
 variable "aws_region" {
@@ -28,12 +30,12 @@ variable "az_count" {
     default = "2"
 }
 
- variable "frontend_app_image" {
+variable "frontend_app_image" {
      description = "Docker image to run in the ECS cluster"
      default = "818927461430.dkr.ecr.us-east-1.amazonaws.com/book-store-app-frontend:latest"
 }
 
- variable "backend_app_image" {
+variable "backend_app_image" {
      description = "Docker image to run in the ECS cluster"
      default = "818927461430.dkr.ecr.us-east-1.amazonaws.com/book-store-app-backend:latest"
 }
@@ -50,7 +52,7 @@ variable "backend_app_port" {
 
 variable "app_count" {
     description = "Number of docker containers to run"
-    default = 2
+    default = 3
 }
 
 variable "health_check_path" {

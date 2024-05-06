@@ -7,7 +7,7 @@ resource "aws_alb" "main" {
 }
 
 resource "aws_lb_target_group" "frontend_target_group" {
-    name     = "bk-target-group"
+    name     = "bk-target-group-frontend"
     port     = var.frontend_app_port
     protocol = "HTTP"
     vpc_id   = aws_vpc.main.id
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "frontend_target_group" {
 }
 
 resource "aws_lb_target_group" "backend_target_group" {
-    name     = "bk-target-group"
+    name     = "bk-target-group-backend"
     port     = var.backend_app_port
     protocol = "HTTP"
     vpc_id   = aws_vpc.main.id
