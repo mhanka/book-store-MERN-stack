@@ -5,7 +5,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "main" {
-    cidr_block = "10.0.0.0/24"
+    cidr_block = "172.17.0.0/16"
 }
 
 # Create a new route table for the private subnets, make it route non-local traffic through the NAT gateway to the internet
