@@ -22,3 +22,22 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Ignore Terraform state files
+*.tfstate
+*.tfstate.backup
+*.tfplan
+*.tfvars
+
+# Ignore .terraform directory
+.terraform/
+
+# Ignore any local override files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
