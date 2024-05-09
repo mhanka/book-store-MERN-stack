@@ -57,7 +57,7 @@ resource aws_ecs_service "frontend_app" {
     }
     load_balancer {
         target_group_arn = aws_lb_target_group.frontend_target_group.arn
-        container_name = "book-store-frontend-app"
+        container_name = "frontend-app"
         container_port = var.frontend_app_port
     }
     depends_on = [ aws_lb_target_group.frontend_target_group, aws_iam_role.ecs_task_execution_role ]
@@ -76,7 +76,7 @@ resource aws_ecs_service "backend_app" {
     }
     load_balancer {
         target_group_arn = aws_lb_target_group.backend_target_group.arn
-        container_name = "book-store-backend-app"
+        container_name = "backend-app"
         container_port = var.backend_app_port
     }
     depends_on = [ aws_lb_target_group.backend_target_group, aws_iam_role.ecs_task_execution_role ]
