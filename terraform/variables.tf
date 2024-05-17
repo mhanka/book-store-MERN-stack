@@ -32,12 +32,12 @@ variable "az_count" {
 
 variable "frontend_app_image" {
      description = "Docker image to run in the ECS cluster"
-     default = "818927461430.dkr.ecr.us-east-1.amazonaws.com/book-store-app-frontend:latest"
+     default = "mohankris1995/book-store-app:frontend-latest"
 }
 
 variable "backend_app_image" {
      description = "Docker image to run in the ECS cluster"
-     default = "818927461430.dkr.ecr.us-east-1.amazonaws.com/book-store-app-backend:latest"
+     default = "mohankris1995/book-store-app:backend-latest"
 }
 variable "frontend_app_port" {
     description = "Port exposed by the docker image to redirect traffic to"

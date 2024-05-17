@@ -13,7 +13,7 @@ const ShowBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api/${id}`)
+      .get(`:5000/api/${id}`)
       .then((response) => {
         setBook(response.data.data);
         setLoading(false);

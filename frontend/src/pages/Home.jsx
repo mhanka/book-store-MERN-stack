@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`/api`)
+      .get(`:5000/api`)
       .then((response) => {
         setBooks(response.data.data);
         setLoading(false);
