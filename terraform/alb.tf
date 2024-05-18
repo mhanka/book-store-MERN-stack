@@ -18,7 +18,7 @@ resource "aws_lb_target_group" "frontend_target_group" {
         protocol            = "HTTP"
         matcher             = "200"
         timeout             = "3"
-        path = var.health_check_path
+        path = var.frontend_health_check_path
         unhealthy_threshold = "2"
     }
 }
@@ -35,7 +35,7 @@ resource "aws_lb_target_group" "backend_target_group" {
         protocol            = "HTTP"
         matcher             = "200"
         timeout             = "3"
-        path = var.health_check_path
+        path = var.backend_health_check_path
         unhealthy_threshold = "2"
     }
 }

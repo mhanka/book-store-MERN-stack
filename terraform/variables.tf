@@ -55,8 +55,12 @@ variable "app_count" {
     default = 3
 }
 
-variable "health_check_path" {
+variable "frontend_health_check_path" {
   default = "/"
+}
+
+variable "backend_health_check_path" {
+  default = "/api"
 }
 
 variable "fargate_cpu" {
