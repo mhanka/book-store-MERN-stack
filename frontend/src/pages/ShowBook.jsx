@@ -13,7 +13,9 @@ const ShowBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`:5000/api/${id}`)
+      .get(
+        `${window.location.protocol}//${window.location.hostname}:5000/api/${id}`
+      )
       .then((response) => {
         setBook(response.data.data);
         setLoading(false);

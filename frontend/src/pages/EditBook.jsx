@@ -18,7 +18,9 @@ const EditBook = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`:5000/api/${id}`)
+      .get(
+        `${window.location.protocol}//${window.location.hostname}:5000/api/${id}`
+      )
       .then((response) => {
         setAuthor(response.data.data.author);
         setPublishYear(response.data.data.publishYear);
@@ -40,7 +42,10 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`:5000/api/${id}`, data)
+      .put(
+        `${window.location.protocol}//${window.location.hostname}:5000/api/${id}`,
+        data
+      )
       .then(() => {
         setLoading(false);
         enqueueSnackbar("Book Edited successfully", { variant: "success" });
