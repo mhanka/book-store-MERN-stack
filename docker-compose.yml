@@ -5,6 +5,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     image: mohankris1995/book-store-app:backend-latest
+    environment:
+      - MONGODBURL=${MONGODBURL}
     ports:
       - 5000:5000
   frontend:

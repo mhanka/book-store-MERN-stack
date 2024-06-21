@@ -18,7 +18,7 @@ WORKDIR /app
 # Copy the rest of the application code to the working directory
 COPY /dist/bundle.js  ./ 
 
-COPY .env ./
+##COPY .env ./
 
 # Expose the port on which your backend server will run
 EXPOSE 5000

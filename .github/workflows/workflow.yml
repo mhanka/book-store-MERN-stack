@@ -1,0 +1,76 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        working-directory: ./backend
+        run: npm install
+
+      - name: Build project
+        env:
+          MONGODBURL: ${{ secrets.MONGODBURL }}
+        working-directory: ./backend
+        run: npm run build
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker images
+        env:
+          MONGODBURL: ${{ secrets.MONGODBURL }}
+        run: |
+          docker compose -f docker-compose.yml build
+          docker compose -f docker-compose.yml push
+
+      - name: Remove dangling Docker images
+        run: |
+          dangling_images=$(docker images -q -f "dangling=true")
+          if [ -n "$dangling_images" ]; then
+            echo "Removing dangling images..."
+            docker rmi $dangling_images
+          else
+            echo "No dangling images found."
+          fi
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.0
+
+      - name: Initialize Terraform
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+        run: terraform init
+
+      - name: Apply Terraform
+        working-directory: ./terraform
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          TF_VAR_aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          TF_VAR_aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+        run: terraform apply -auto-approve
