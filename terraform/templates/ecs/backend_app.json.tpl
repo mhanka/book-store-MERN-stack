@@ -5,6 +5,12 @@
     "cpu": ${fargate_cpu},
     "memory": ${fargate_memory},
     "networkMode": "awsvpc",
+    "environment": [
+       {
+         "name": "MONGODBURL",
+         "value": "${mongodb_url}"
+       }
+    ],
     "logConfiguration": {
         "logDriver": "awslogs",
         "options": {

@@ -21,6 +21,7 @@ data template_file "backend_app"{
         fargate_cpu = var.fargate_cpu
         fargate_memory = var.fargate_memory
         aws_region = var.aws_region
+        mongodb_url = var.mongodb_url
     }
 }
 

@@ -15,6 +15,11 @@ variable "aws_region" {
   description = "aws region settings"
 }
 
+variable "mongodb_url"{
+    description = "MongoDB url value"
+    sensitive = true
+}
+
 variable "ec2_task_execution_role_name" {
     description = "ECS task execution role name"
     default = "myEcsTaskExecutionRole"
