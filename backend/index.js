@@ -20,7 +20,10 @@ app.use(cors());
 // );
 app.use("/api", booksRoute);
 mongoose
-  .connect(process.env.MONGODBURL)
+  .connect(process.env.MONGODBURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("App connected to DB");
     app.listen(PORT, () => {
